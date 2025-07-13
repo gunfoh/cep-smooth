@@ -1,0 +1,24 @@
+[
+    {
+        "id": 1752432281828,
+        "type": "Pothole",
+        "description": "a",
+        "location": [
+            53.765,
+            -2.685
+        ],
+        "timestamp": "2025-07-13T18:44:41.828Z",
+        "status": "Reported"
+    },
+    {
+        "id": 1752432291959,
+        "type": "Pothole",
+        "description": "a",
+        "location": [
+            53.765,
+            -2.685
+        ],
+        "timestamp": "2025-07-13T18:44:51.959Z",
+        "status": "Reported"
+    }
+]
