@@ -7,19 +7,19 @@ import time
 from waitress import serve
 import multiprocessing
 
-# --- NEW: Simple logging function ---
-# This will write messages to a file so we can debug the shutdown process.
+#logging for debugging
+
 def log_message(message):
-    """Appends a timestamped message to a log file."""
+    
     with open("shutdown_log.txt", "a") as f:
         f.write(f"{time.ctime()}: {message}\n")
 
-# --- Shared Memory for Heartbeat ---
+# memory for heartbeat
 last_heartbeat = multiprocessing.Value('d', time.time())
 
-# --- Flask App Setup ---
+#flask setup
 def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
+
     try:
         base_path = sys._MEIPASS
     except Exception:
@@ -33,7 +33,7 @@ app = Flask(
 )
 DATA_FILE = "civic_issues.json"
 
-# --- Data handling functions ---
+#data handling
 def load_data():
     if not os.path.exists(DATA_FILE):
         with open(DATA_FILE, 'w') as f: json.dump([], f)
@@ -45,7 +45,7 @@ def load_data():
 def save_data(data):
     with open(DATA_FILE, 'w') as f: json.dump(data, f, indent=4)
 
-# --- API Endpoints ---
+#api endpoints
 @app.route('/api/issues', methods=['GET'])
 def get_issues():
     return jsonify(load_data())
@@ -61,7 +61,7 @@ def add_issue():
 
 @app.route('/api/heartbeat', methods=['POST'])
 def heartbeat():
-    """Updates the last_heartbeat shared value."""
+    
     last_heartbeat.value = time.time()
     return jsonify(success=True)
 
@@ -69,9 +69,9 @@ def heartbeat():
 def index():
     return render_template('index.html')
 
-# --- Server runner function ---
+
 def run_server():
-    """Function to run the waitress server."""
+    
     serve(app, host='127.0.0.1', port=8080)
 
 def open_browser():
@@ -88,7 +88,7 @@ if __name__ == '__main__':
     time.sleep(1)
     open_browser()
 
-    # The main process now monitors for shutdown conditions
+   
     try:
         while True:
             if time.time() - last_heartbeat.value > 5:
@@ -97,7 +97,7 @@ if __name__ == '__main__':
                 log_message("Server process terminated.")
                 server_process.join()
                 log_message("Server process joined.")
-                break # Exit the loop to shut down
+                break 
             time.sleep(1)
     except (KeyboardInterrupt, SystemExit):
         log_message("Shutdown requested via KeyboardInterrupt/SystemExit.")

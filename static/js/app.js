@@ -1,6 +1,6 @@
 const { useState, useEffect, useRef } = React;
 
-// --- Main App Component ---
+
 function App() {
     const [database, setDatabase] = useState([]);
     const [view, setView] = useState('main_menu');
@@ -8,20 +8,18 @@ function App() {
 
     const DEEPDALE_COORDS = [53.765, -2.685];
 
-    // --- NEW: Heartbeat Effect ---
-    // This effect sends a "I'm alive" signal to the server every 3 seconds.
-    // If the server doesn't get this for a few seconds, it will shut down.
+    //heartbeat new
     useEffect(() => {
         const intervalId = setInterval(() => {
             fetch('/api/heartbeat', { method: 'POST' })
                 .catch(err => console.error("Heartbeat failed:", err));
-        }, 3000); // Send heartbeat every 3 seconds
+        }, 3000); //send heartbeat every 3 seconds
 
-        // Cleanup function to stop the heartbeats when the component unmounts
+        
         return () => clearInterval(intervalId);
-    }, []); // The empty array ensures this effect runs only once.
+    }, []); 
 
-    // Load data from the backend when the app starts
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -81,8 +79,8 @@ function App() {
     );
 }
 
-// --- All other UI components (MainMenu, ReportForm, etc.) remain unchanged ---
-// (Pasted here for completeness)
+//ui
+
 
 function MainMenu({ setView }) {
     const Button = ({ children, onClick, colorClass }) => (
@@ -177,6 +175,6 @@ function HeatmapView({ issues, onBack, initialCoords }) {
     );
 }
 
-// --- Render the App ---
+//renders app
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);

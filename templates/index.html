@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Civic Engagement Platform</title>
     
-    <!-- React and Babel for JSX compilation -->
+    <!-- react + babel  -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
-    <!-- Tailwind CSS for styling -->
+    <!-- tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Leaflet for Mapping -->
+    <!-- leaflet for mapping -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="root"></div>
-    <!-- The React application will be loaded from this script -->
+    <!-- react app loaded from this script -->
     <script type="text/babel" src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
